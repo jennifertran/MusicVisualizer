@@ -17,8 +17,19 @@
 </head>
 
 <body>
-<div id="canvas" style="width:auto; margin: 0 auto;">
+
+<div id="musicPlayer">
+  <input type="file" id="music-files" multiple accept="audio/*"/>
+  <audio id="music" src=""></audio>
+  <br/><br/>
+  <div class="play" id="play" onclick = "play()">Play ></div>
+  <br/><br/>
+  <div class="stop" id="stop" onclick = "stop()">Stop |=| ></div>
+</div>
+
+<div id="canvas">
   <script src="main.js"></script>
 </div>
+
 </body>
 </html>

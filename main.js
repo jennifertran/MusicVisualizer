@@ -1,7 +1,44 @@
+var musicFiles = [];
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var audio;
+var audioSrc;
+var analyser;
+var bufferLength;
+var dataArray; // frequency data
+
 var camera, scene, renderer;
 var cameraControls;
 
 var clock = new THREE.Clock();
+
+function selectMusic(e) {
+  musicFiles = e.target.files;
+}
+
+function getFreq(){
+  requestAnimationFrame(getFreq);
+  analyser.getByteFrequencyData(dataArray);
+}
+
+function play(){
+  var num = Math.floor(Math.random()*musicFiles.length);
+  var musicFile = URL.createObjectURL(musicFiles[num]);
+  $("#music").attr("src", musicFile);
+  document.getElementById('music').play();
+
+  audio = document.getElementById('music');
+  audioSrc = audioCtx.createMediaElementSource(audio);
+  analyser = audioCtx.createAnalyser();
+  audioSrc.connect(analyser);
+  audioSrc.connect(audioCtx.destination);
+  bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
+  getFreq();
+}
+
+function stop(){
+  document.getElementById('music').pause();
+}
 
 function fillScene() {
   scene = new THREE.Scene();
@@ -15,8 +52,8 @@ function fillScene() {
 // Initialization
 
 function init() {
-  var canvasWidth = window.innerWidth - 18;
-  var canvasHeight = window.innerHeight - 20;
+  var canvasWidth = window.innerWidth;
+  var canvasHeight = window.innerHeight;
   var canvasRatio = canvasWidth / canvasHeight;
 
   // Set up a renderer. This will allow WebGL to make your scene appear
@@ -40,7 +77,7 @@ function init() {
 function onWindowResize() {
   camera.aspect = (window.innerWidth) / (window.innerHeight);
   camera.updateProjectionMatrix();
-  renderer.setSize( (window.innerWidth - 18), (window.innerHeight - 20) );
+  renderer.setSize( (window.innerWidth), (window.innerHeight) );
 }
 
 // We want our document object model (a javascript / HTML construct) to include our canvas
@@ -79,6 +116,10 @@ try {
 } catch (error) {
   console.log("You did something bordering on utter madness. Error was:");
   console.log(error);
+}
+
+window.onload = function(e) {
+  document.getElementById('music-files').addEventListener('change', selectMusic, false);
 }
 
 window.addEventListener( 'resize', onWindowResize, false );

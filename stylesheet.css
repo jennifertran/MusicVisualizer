@@ -1,3 +1,17 @@
 body {
   background-color: #AAAAAA;
 }
+
+#musicPlayer {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+}
+
+canvas {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  margin: auto;
+}
