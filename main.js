@@ -122,9 +122,11 @@ function init() {
 
 // Auto resizes the screen
 function onWindowResize() {
-  camera.aspect = (window.innerWidth)/(window.innerHeight);
-  camera.updateProjectionMatrix();
-  renderer.setSize((window.innerWidth), (window.innerHeight));
+  if(camera) {
+    camera.aspect = (window.innerWidth) / (window.innerHeight);
+    camera.updateProjectionMatrix();
+    renderer.setSize((window.innerWidth), (window.innerHeight));
+  }
 }
 
 // We want our document object model (a javascript / HTML construct) to include our canvas
@@ -144,8 +146,16 @@ function animate() {
 
     for(var i = 0; i < maxCubes; i++) {
       var meter = scene.getObjectByName('cube' + i, true);
-      meter.scale.y = (dataArray[i] / 25);
-      meter.position.y =  (dataArray[i]);
+
+      var currData = dataArray[i];
+
+      if(currData === 0) {
+        currData = 1;
+      }
+
+      meter.scale.y = (currData / 25);
+      meter.position.y =  currData;
+
     }
 
   }
@@ -166,6 +176,7 @@ function render() {
 // Since we're such talented programmers, we include some exception handeling in case we break something
 // a try and catch accomplished this as it often does
 // The sequence below includes initialization, filling up the scene, adding this to the DOM, and animating (updating what appears)
+
 try {
   init();
   fillScene();
