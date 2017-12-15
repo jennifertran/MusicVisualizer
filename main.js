@@ -20,6 +20,8 @@ function getFreq(){
   analyser.getByteFrequencyData(dataArray);
 }
 
+// var isPlay = false;
+
 function play(){
   var num = Math.floor(Math.random()*musicFiles.length);
   var musicFile = URL.createObjectURL(musicFiles[num]);
@@ -29,16 +31,26 @@ function play(){
   audio = document.getElementById('music');
   audioSrc = audioCtx.createMediaElementSource(audio);
   analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 256;
   audioSrc.connect(analyser);
   audioSrc.connect(audioCtx.destination);
   bufferLength = analyser.frequencyBinCount;
   dataArray = new Uint8Array(bufferLength);
   getFreq();
+  // isPlay = true;
 
 }
 
 function stop(){
   document.getElementById('music').pause();
+  // if(scene){
+  //
+  //   for(var i = 0; i < maxCount; i++) {
+  //     scene.remove(scene.getObjectByName('cube' + i));
+  //   }
+  //   isPlay = false;
+  // }
+
 }
 
 function fillScene() {
@@ -83,17 +95,30 @@ function createObjectMaterial() {
 var cube, material;
 
 var maxCubes = 20;
+var maxWidth = 15;
+var maxHeight = 7;
+var count = 0;
+var maxCount = 0;
 
 function startVisuals(){
 
-  for(var i = 0; i < maxCubes; i++)
+
+  for(var i = 0; i < maxHeight; i++)
   {
-    cube = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50), createObjectMaterial());
-    cube.position.y = 25;
-    cube.position.x = -1000 + i*100;
-    cube.name = 'cube' + i;
-    scene.add(cube);
+    for(var j = 0; j < maxWidth; j++){
+      cube = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50), createObjectMaterial());
+      cube.position.y = 25;
+      cube.position.x = -500 + j*100;
+      cube.position.z = i*100;
+      cube.name = 'cube' + count;
+      count++;
+      scene.add(cube);
+    }
+
   }
+
+  maxCount = count;
+  count = 0;
 
 }
 
@@ -144,7 +169,7 @@ function animate() {
   if(analyser){
     getFreq();
 
-    for(var i = 0; i < maxCubes; i++) {
+    for(var i = 0; i < maxCount; i++) {
       var meter = scene.getObjectByName('cube' + i, true);
 
       var currData = dataArray[i];
@@ -155,6 +180,8 @@ function animate() {
 
       meter.scale.y = (currData / 25);
       meter.position.y =  currData;
+
+      // meter.position.y =  currData* 1.5;
 
     }
 
