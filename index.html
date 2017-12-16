@@ -13,6 +13,7 @@
   <script src="js/OrbitControls.js"></script>
   <script src="js/dat.gui.min.js"></script>
   <script src="js/KeyboardState.js"></script>
+  <script src="audio.js"></script>
 
 </head>
 
@@ -26,12 +27,15 @@
   <br/><br/>
   <div class="stop" id="stop" onclick = "stop()">Stop |=| ></div>
   <br/><br/>
-  <div class="Sample1" id="Sample1" onclick = "">Cubes 1</div>
+  <div class="Sample1" id="Sample1" onclick = "startVisuals()">Matrix Cubes</div>
   <br/><br/>
-  <div class="Sample2" id="Sample2" onclick = "">Cubes 2</div>
+  <div class="Sample2" id="Sample2" onclick = "startVisuals2()">Cubes 2</div>
 </div>
 
 <div id="canvas">
+  <script src="visualizers/MatrixCube.js"></script>
+  <script src="visualizers/MatrixCubes2.js"></script>
+  <script src="visualizers/deleteScene.js"></script>
   <script src="main.js"></script>
 </div>
 

@@ -1,126 +1,9 @@
-var musicFiles = [];
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var audio;
-var audioSrc;
-var analyser;
-var bufferLength;
-var dataArray; // frequency data
-
 var camera, scene, renderer;
 var cameraControls;
 
 var clock = new THREE.Clock();
+var currVisualizer = 1; // Figures out the current Visualizer
 
-function selectMusic(e) {
-  musicFiles = e.target.files;
-}
-
-function getFreq(){
-  requestAnimationFrame(getFreq);
-  analyser.getByteFrequencyData(dataArray);
-}
-
-// var isPlay = false;
-
-function play(){
-  var num = Math.floor(Math.random()*musicFiles.length);
-  var musicFile = URL.createObjectURL(musicFiles[num]);
-  $("#music").attr("src", musicFile);
-  document.getElementById('music').play();
-
-  audio = document.getElementById('music');
-  audioSrc = audioCtx.createMediaElementSource(audio);
-  analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 256;
-  audioSrc.connect(analyser);
-  audioSrc.connect(audioCtx.destination);
-  bufferLength = analyser.frequencyBinCount;
-  dataArray = new Uint8Array(bufferLength);
-  getFreq();
-  // isPlay = true;
-
-}
-
-function stop(){
-  document.getElementById('music').pause();
-  // if(scene){
-  //
-  //   for(var i = 0; i < maxCount; i++) {
-  //     scene.remove(scene.getObjectByName('cube' + i));
-  //   }
-  //   isPlay = false;
-  // }
-
-}
-
-function fillScene() {
-  scene = new THREE.Scene();
-
-  var light = new THREE.HemisphereLight(0x9b9da0, 0x080820, 0.2);
-  scene.add(light);
-
-  var ambient = new THREE.AmbientLight(0x1c1d1e, 0.1);
-  scene.add(ambient);
-
-
-  var light = new THREE.DirectionalLight( 0xffffff, 1 );
-  light.position.set( 100, 100, 50 );
-  light.castShadow = true;
-  var dLight = 200;
-  var sLight = dLight * 0.25;
-  light.shadow.camera.left = -sLight;
-  light.shadow.camera.right = sLight;
-  light.shadow.camera.top = sLight;
-  light.shadow.camera.bottom = -sLight;
-  light.shadow.camera.near = dLight / 30;
-  light.shadow.camera.far = dLight;
-  light.shadow.mapSize.x = 1024 * 2;
-  light.shadow.mapSize.y = 1024 * 2;
-  scene.add(light);
-
-
-  //Visualize the Axes - Useful for debugging, can turn this off if desired
-  var axes = new THREE.AxisHelper(1500);
-  scene.add(axes);
-
-  startVisuals();
-
-}
-
-function createObjectMaterial() {
-  var c = Math.floor( Math.random() * ( 1 << 24 ) );
-  return new THREE.MeshPhongMaterial( { color: c } );
-}
-
-var cube, material;
-
-var maxCubes = 20;
-var maxWidth = 15;
-var maxHeight = 7;
-var count = 0;
-var maxCount = 0;
-
-function startVisuals(){
-
-
-  for(var i = 0; i < maxHeight; i++)
-  {
-    for(var j = 0; j < maxWidth; j++){
-      cube = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50), createObjectMaterial());
-      cube.position.y = 25;
-      cube.position.x = -500 + j*100;
-      cube.position.z = i*100;
-      cube.name = 'cube' + count;
-      count++;
-      scene.add(cube);
-    }
-
-  }
-
-  maxCount = count;
-  count = 0;
-
-}
 
 // Initialization
 
@@ -154,6 +37,45 @@ function onWindowResize() {
   }
 }
 
+function fillScene() {
+  scene = new THREE.Scene();
+
+  var light = new THREE.HemisphereLight(0x9b9da0, 0x080820, 0.2);
+  scene.add(light);
+
+  var ambient = new THREE.AmbientLight(0x1c1d1e, 0.1);
+  scene.add(ambient);
+
+
+  var light = new THREE.DirectionalLight( 0xffffff, 1 );
+  light.position.set( 100, 100, 50 );
+  light.castShadow = true;
+  var dLight = 200;
+  var sLight = dLight * 0.25;
+  light.shadow.camera.left = -sLight;
+  light.shadow.camera.right = sLight;
+  light.shadow.camera.top = sLight;
+  light.shadow.camera.bottom = -sLight;
+  light.shadow.camera.near = dLight / 30;
+  light.shadow.camera.far = dLight;
+  light.shadow.mapSize.x = 1024 * 2;
+  light.shadow.mapSize.y = 1024 * 2;
+  scene.add(light);
+
+
+  //Visualize the Axes - Useful for debugging, can turn this off if desired
+  var axes = new THREE.AxisHelper(1500);
+  scene.add(axes);
+
+  drawVisual1();
+}
+
+function createObjectMaterial() {
+  var c = Math.floor( Math.random() * ( 1 << 24 ) );
+  return new THREE.MeshPhongMaterial( { color: c } );
+}
+
+
 // We want our document object model (a javascript / HTML construct) to include our canvas
 // These allow for easy integration of webGL and HTML
 function addToDOM() {
@@ -165,27 +87,24 @@ function addToDOM() {
 // Since you might change view, or move things
 // We cant to update what appears
 function animate() {
-  window.requestAnimationFrame(animate);
-  if(analyser){
-    getFreq();
 
-    for(var i = 0; i < maxCount; i++) {
-      var meter = scene.getObjectByName('cube' + i, true);
+  setTimeout( function() {
 
-      var currData = dataArray[i];
-
-      if(currData === 0) {
-        currData = 1;
+    window.requestAnimationFrame(animate);
+    if(analyser){
+      switch (currVisualizer) {
+        case 1:
+          animateVis1();
+          break;
+        case 2:
+          animateVis2();
+          break;
       }
-
-      meter.scale.y = (currData / 25);
-      meter.position.y =  currData;
-
-      // meter.position.y =  currData* 1.5;
-
     }
 
-  }
+  }, 1000 / 40 );
+
+
   render();
 
 }
@@ -212,10 +131,6 @@ try {
 } catch (error) {
   console.log("You did something bordering on utter madness. Error was:");
   console.log(error);
-}
-
-window.onload = function(e) {
-  document.getElementById('music-files').addEventListener('change', selectMusic, false);
 }
 
 window.addEventListener( 'resize', onWindowResize, false );
