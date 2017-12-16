@@ -10,18 +10,18 @@ function selectMusic(e) {
   musicFiles = e.target.files;
 }
 
-function getFreq(){
+function getFreq() {
   requestAnimationFrame(getFreq);
   analyser.getByteFrequencyData(dataArray);
 }
 
-function play(){
-  var num = Math.floor(Math.random()*musicFiles.length);
+function play() {
+  var num = Math.floor(Math.random() * musicFiles.length);
   var musicFile = URL.createObjectURL(musicFiles[num]);
   $("#music").attr("src", musicFile);
   document.getElementById('music').play();
 
-  if(!audio) {
+  if (!audio) {
     audio = document.getElementById('music');
     audio.crossOrigin = "anonymous";
     audioSrc = audioCtx.createMediaElementSource(audio);
@@ -35,10 +35,10 @@ function play(){
 
 }
 
-function stop(){
+function stop() {
   document.getElementById('music').pause();
 }
 
-window.onload = function(e) {
+window.onload = function (e) {
   document.getElementById('music-files').addEventListener('change', selectMusic, false);
 }

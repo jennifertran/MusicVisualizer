@@ -3,6 +3,7 @@ function startVisuals2() {
     deleteScene(currVisualizer);
     drawVisual2();
   }
+  currVisualizer = 2;
 }
 
 function drawVisual2() {
@@ -14,13 +15,11 @@ function drawVisual2() {
     cube = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50), createObjectMaterial());
     cube.position.y = 25;
     cube.position.x = -1000 + i * 100;
-    cube.position.z = 100;
-    cube.name = 'cube' + count;
+    cube.name = 'cubes' + count;
     count++;
     scene.add(cube);
   }
 
-currVisualizer = 2;
 maxCount = count;
 count = 0;
 }
@@ -29,7 +28,7 @@ function animateVis2() {
   getFreq();
 
   for (var i = 0; i < maxCount; i++) {
-    var meter = scene.getObjectByName('cube' + i, true);
+    var meter = scene.getObjectByName('cubes' + i, true);
 
     var currData = dataArray[i];
 
@@ -37,10 +36,9 @@ function animateVis2() {
       currData = 1;
     }
 
-    // meter.scale.y = (currData / 25);
-    // meter.position.y =  currData;
-
-    meter.position.y = currData * 1.5;
+    if(meter !== undefined) {
+      meter.position.y = currData * 1.5;
+    }
 
   }
 }

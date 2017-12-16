@@ -22,7 +22,7 @@ function init() {
   renderer.setClearColor(0xAAAAAA, 1.0);
 
   // Camera
-  camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.2, 2000 );
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
   cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
   camera.position.set(0, 800, 700);
   // cameraControls.target.set(4, 301, 92);
@@ -30,7 +30,7 @@ function init() {
 
 // Auto resizes the screen
 function onWindowResize() {
-  if(camera) {
+  if (camera) {
     camera.aspect = (window.innerWidth) / (window.innerHeight);
     camera.updateProjectionMatrix();
     renderer.setSize((window.innerWidth), (window.innerHeight));
@@ -47,8 +47,8 @@ function fillScene() {
   scene.add(ambient);
 
 
-  var light = new THREE.DirectionalLight( 0xffffff, 1 );
-  light.position.set( 100, 100, 50 );
+  var light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(100, 100, 50);
   light.castShadow = true;
   var dLight = 200;
   var sLight = dLight * 0.25;
@@ -71,8 +71,8 @@ function fillScene() {
 }
 
 function createObjectMaterial() {
-  var c = Math.floor( Math.random() * ( 1 << 24 ) );
-  return new THREE.MeshPhongMaterial( { color: c } );
+  var c = Math.floor(Math.random() * ( 1 << 24 ));
+  return new THREE.MeshPhongMaterial({color: c});
 }
 
 
@@ -88,22 +88,17 @@ function addToDOM() {
 // We cant to update what appears
 function animate() {
 
-  setTimeout( function() {
-
-    window.requestAnimationFrame(animate);
-    if(analyser){
-      switch (currVisualizer) {
-        case 1:
-          animateVis1();
-          break;
-        case 2:
-          animateVis2();
-          break;
-      }
+  window.requestAnimationFrame(animate);
+  if (analyser) {
+    switch (currVisualizer) {
+      case 1:
+        animateVis1();
+        break;
+      case 2:
+        animateVis2();
+        break;
     }
-
-  }, 1000 / 40 );
-
+  }
 
   render();
 
@@ -117,6 +112,24 @@ function render() {
   cameraControls.update(delta);
 
   renderer.render(scene, camera);
+}
+
+// Deletes all the objects in the scene to set up for the new one
+function deleteScene(number) {
+  if (scene) {
+    switch (number) {
+      case 1:
+        for (var i = 0; i < maxCount; i++) {
+          scene.remove(scene.getObjectByName('cube' + i));
+        }
+        break;
+      case 2:
+        for (var i = 0; i < maxCount; i++) {
+          scene.remove(scene.getObjectByName('cubes' + i));
+        }
+    }
+  }
+
 }
 
 // Since we're such talented programmers, we include some exception handeling in case we break something
@@ -133,4 +146,4 @@ try {
   console.log(error);
 }
 
-window.addEventListener( 'resize', onWindowResize, false );
+window.addEventListener('resize', onWindowResize, false);
