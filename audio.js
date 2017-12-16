@@ -5,6 +5,7 @@ var audioSrc;
 var analyser;
 var bufferLength;
 var dataArray; // frequency data
+var state = 2; //0 for playing, 1 for paused, 2 for stopped 
 
 function selectMusic(e) {
   musicFiles = e.target.files;
@@ -37,6 +38,11 @@ function play() {
 
 function stop() {
   document.getElementById('music').pause();
+}
+
+function pause(){
+
+
 }
 
 window.onload = function (e) {
