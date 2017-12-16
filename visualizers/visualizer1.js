@@ -10,6 +10,11 @@ function startVisuals() {
   currVisualizer = 1;
 }
 
+var cameraAngle = 90;
+var orbitRange = 700;
+var orbitSpeed = 1 * Math.PI/180;
+var desiredAngle = 90 * Math.PI/180;
+
 function drawVisual1() {
   var cube;
   var maxWidth = 11;
@@ -28,6 +33,9 @@ function drawVisual1() {
 
   }
 
+  camera.position.set(orbitRange,1000, 200);
+  camera.lookAt(0, 800, 0);
+
   maxCount = count;
   count = 0;
 }
@@ -35,14 +43,23 @@ function drawVisual1() {
 function animateVis1() {
   getFreq();
 
+  if (cameraAngle === desiredAngle) {
+    orbitSpeed = 0;
+  }
+  else {
+    cameraAngle += orbitSpeed;
+    camera.position.x = Math.cos(cameraAngle) * orbitRange;
+    // camera.position.y = Math.sin(cameraAngle) * 500;
+  }
+
   setTimeout(function () {
     for (var i = 0; i < maxCount; i++) {
       var meter = scene.getObjectByName('cube' + i, true);
 
       var currData = dataArray[i];
 
-      if (currData === 0) {
-        currData = 1;
+      if (currData < 25) {
+        currData = 25;
       }
 
       if(meter !== undefined) {

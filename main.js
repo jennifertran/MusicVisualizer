@@ -19,7 +19,7 @@ function init() {
   renderer.gammaOutput = true;
   renderer.setSize(canvasWidth, canvasHeight);
 
-  renderer.setClearColor(0xAAAAAA, 1.0);
+  renderer.setClearColor(0xFFFFFF, 1.0);
 
   // Camera
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
@@ -43,12 +43,12 @@ function fillScene() {
   var light = new THREE.HemisphereLight(0x9b9da0, 0x080820, 0.2);
   scene.add(light);
 
-  var ambient = new THREE.AmbientLight(0x1c1d1e, 0.1);
+  var ambient = new THREE.AmbientLight(0x000611, 0.1);
   scene.add(ambient);
 
 
   var light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(100, 100, 50);
+  light.position.set(0, 100, 50);
   light.castShadow = true;
   var dLight = 200;
   var sLight = dLight * 0.25;
@@ -64,15 +64,20 @@ function fillScene() {
 
 
   //Visualize the Axes - Useful for debugging, can turn this off if desired
-  var axes = new THREE.AxisHelper(1500);
-  scene.add(axes);
+  // var axes = new THREE.AxisHelper(1500);
+  // scene.add(axes);
 
   drawVisual1();
 }
 
 function createObjectMaterial() {
+
   var c = Math.floor(Math.random() * ( 1 << 24 ));
-  return new THREE.MeshPhongMaterial({color: c});
+  var material = new THREE.MeshPhongMaterial({
+    color: c,
+    shininess: 50
+  });
+  return material;
 }
 
 
