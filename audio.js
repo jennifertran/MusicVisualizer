@@ -5,10 +5,12 @@ var audioSrc;
 var analyser;
 var bufferLength;
 var dataArray; // frequency data
-var state = 2; //0 for playing, 1 for paused, 2 for stopped
 
 function selectMusic(e) {
   musicFiles = e.target.files;
+  var num = Math.floor(Math.random() * musicFiles.length);
+  var musicFile = URL.createObjectURL(musicFiles[num]);
+  $("#music").attr("src", musicFile);
 }
 
 function getFreq() {
@@ -18,10 +20,8 @@ function getFreq() {
 
 function play() {
 
-  if(state != 0){
-    var num = Math.floor(Math.random() * musicFiles.length);
-    var musicFile = URL.createObjectURL(musicFiles[num]);
-    $("#music").attr("src", musicFile);
+  if((document.getElementById('music').paused)){
+
     document.getElementById('music').play();
 
     if (!audio) {
@@ -35,21 +35,22 @@ function play() {
       bufferLength = analyser.frequencyBinCount;
       dataArray = new Uint8Array(bufferLength);
     }
-    state = 0;
   }
 
 }
 
 function stop() {
   document.getElementById('music').pause();
-  state = 2;
+  var num = Math.floor(Math.random() * musicFiles.length);
+  var musicFile = URL.createObjectURL(musicFiles[num]);
+  $("#music").attr("src", musicFile);
 }
 
 function pause(){
   document.getElementById('music').pause();
-  state = 1;
 }
 
 window.onload = function (e) {
   document.getElementById('music-files').addEventListener('change', selectMusic, false);
+
 }
