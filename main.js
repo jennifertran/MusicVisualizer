@@ -1,4 +1,4 @@
-var camera, scene, renderer;
+var camera, scene, renderer, stats;
 var cameraControls;
 
 var clock = new THREE.Clock();
@@ -26,6 +26,11 @@ function init() {
   cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
   camera.position.set(0, 800, 0);
   // cameraControls.target.set(4, 301, 92);
+
+  stats = new Stats();
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.right = '0px';
+  document.body.appendChild(stats.domElement);
 }
 
 // Auto resizes the screen
@@ -92,7 +97,8 @@ function addToDOM() {
 // We cant to update what appears
 function animate() {
 
-  window.requestAnimationFrame(animate);
+  stats.begin();
+
   if (analyser) {
     switch (currVisualizer) {
       case 1:
@@ -101,13 +107,16 @@ function animate() {
       case 2:
         animateVis2();
         break;
-      // case 3:
-      //   animateVis3();
-      //   break;
+        // case 3:
+        //   animateVis3();
+        //   break;
     }
   }
 
+  window.requestAnimationFrame(animate);
   render();
+
+  stats.end();
 
 }
 
