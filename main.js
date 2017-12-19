@@ -24,7 +24,7 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
   cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
-  camera.position.set(0, 800, 700);
+  camera.position.set(0, 800, 0);
   // cameraControls.target.set(4, 301, 92);
 }
 
@@ -72,14 +72,13 @@ function fillScene() {
 
 function createObjectMaterial() {
 
-  var c = Math.floor(Math.random() * ( 1 << 24 ));
+  var c = Math.floor(Math.random() * (1 << 24));
   var material = new THREE.MeshPhongMaterial({
     color: c,
     shininess: 50
   });
   return material;
 }
-
 
 // We want our document object model (a javascript / HTML construct) to include our canvas
 // These allow for easy integration of webGL and HTML
@@ -102,6 +101,9 @@ function animate() {
       case 2:
         animateVis2();
         break;
+      // case 3:
+      //   animateVis3();
+      //   break;
     }
   }
 
@@ -131,6 +133,7 @@ function deleteScene(number) {
       case 2:
         for (var i = 0; i < maxCount; i++) {
           scene.remove(scene.getObjectByName('cubes' + i));
+          scene.remove(scene.getObjectByName('cap' + i));
         }
     }
   }

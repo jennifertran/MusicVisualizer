@@ -5,6 +5,7 @@ function startVisuals() {
 
   if (currVisualizer !== 1) {
     deleteScene(currVisualizer);
+
     drawVisual1();
   }
   currVisualizer = 1;
@@ -68,5 +69,5 @@ function animateVis1() {
       }
 
     }
-  }, 1000 / 40);
+  }, 1000 / 45);
 }
