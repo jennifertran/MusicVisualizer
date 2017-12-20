@@ -7,7 +7,7 @@ function startVisuals3() {
 }
 
 function drawVisual3() {
-    var sphereGeometry = new THREE.SphereGeometry(500, 20, 20);
+    var sphereGeometry = new THREE.SphereGeometry(500, 19, 19);
     var particleBlock = new THREE.PointsMaterial({
         color: Math.floor(Math.random() * (1 << 24)),
         size: 40.0,
@@ -53,8 +53,9 @@ function animateVis3() {
       }
 
       if (sphere) {
-        sphere.scale.y = average / 70;
-        sphere.scale.z = average / 60
+          sphere.scale.x = average / 80;
+          sphere.scale.y = average / 80;
+          sphere.scale.z = average / 80;
       }
 
     }, 1000 / 45);
