@@ -16,3 +16,17 @@ canvas {
   top: 0;
   margin: auto;
 }
+
+.fa:hover {
+
+  color: green;
+  cursor: default;
+}
+
+.default {
+
+}
+
+.music-files {
+
+}
