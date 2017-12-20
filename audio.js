@@ -70,6 +70,7 @@ function playDefault(){
     audio.crossOrigin = "anonymous";
     audioSrc = audioCtx.createMediaElementSource(document.getElementById('autoplay'));
     analyser = audioCtx.createAnalyser();
+    audioBuffer = audioCtx.createBufferSource();
     analyser.fftSize = 256;
     audioSrc.connect(analyser);
     audioSrc.connect(audioCtx.destination);
