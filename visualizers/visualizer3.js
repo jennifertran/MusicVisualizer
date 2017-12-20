@@ -1,9 +1,9 @@
 function startVisuals3() {
-    if (currVisualizer !== 4) {
+    if (currVisualizer !== 3) {
         deleteScene(currVisualizer);
         drawVisual3();
     }
-    currVisualizer = 4;
+    currVisualizer = 3;
 }
 
 function drawVisual3() {

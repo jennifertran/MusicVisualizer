@@ -19,7 +19,7 @@ function init() {
   renderer.gammaOutput = true;
   renderer.setSize(canvasWidth, canvasHeight);
 
-  renderer.setClearColor(0xFFFFFF, 1.0);
+  renderer.setClearColor(0x000000, 1.0);
 
   // Camera
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
@@ -107,9 +107,9 @@ function animate() {
       case 2:
         animateVis2();
         break;
-        // case 3:
-        //   animateVis3();
-        //   break;
+      case 4:
+        animateVis4();
+        break;
     }
   }
 
@@ -144,6 +144,12 @@ function deleteScene(number) {
           scene.remove(scene.getObjectByName('cubes' + i));
           scene.remove(scene.getObjectByName('cap' + i));
         }
+        break;
+      case 4:
+        for (var i = 0; i < maxCount; i++) {
+          scene.remove(scene.getObjectByName('spiral' + i));
+        }
+        break;
     }
   }
 
