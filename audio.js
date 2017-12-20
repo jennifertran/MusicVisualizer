@@ -52,5 +52,5 @@ function pause(){
 
 window.onload = function (e) {
   document.getElementById('music-files').addEventListener('change', selectMusic, false);
-
+  
 }

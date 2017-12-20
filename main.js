@@ -31,6 +31,8 @@ function init() {
   stats.domElement.style.position = 'absolute';
   stats.domElement.style.right = '0px';
   document.body.appendChild(stats.domElement);
+
+  
 }
 
 // Auto resizes the screen
