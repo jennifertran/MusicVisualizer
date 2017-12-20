@@ -69,8 +69,8 @@ function fillScene() {
 
 
   //Visualize the Axes - Useful for debugging, can turn this off if desired
-  // var axes = new THREE.AxisHelper(1500);
-  // scene.add(axes);
+  var axes = new THREE.AxisHelper(1500);
+  scene.add(axes);
 
   drawVisual1();
 }
@@ -107,8 +107,14 @@ function animate() {
       case 2:
         animateVis2();
         break;
+      case 3:
+        animateVis3();
+        break;
       case 4:
         animateVis4();
+        break;
+      case 5:
+        animateVis5();
         break;
     }
   }
