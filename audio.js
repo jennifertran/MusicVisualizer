@@ -6,6 +6,7 @@ var analyser;
 var bufferLength;
 var dataArray; // frequency data
 var audioBuffer;
+var defaultMusic = true; //used to tell if we are currently running default music or not
 
 function selectMusic(e) {
   audio = null;
@@ -13,6 +14,7 @@ function selectMusic(e) {
   var num = Math.floor(Math.random() * musicFiles.length);
   var musicFile = URL.createObjectURL(musicFiles[num]);
   $("#music").attr("src", musicFile);
+  defaultMusic = false;
 }
 
 function getFreq() {
@@ -22,7 +24,7 @@ function getFreq() {
 
 function play() {
 
-  if((document.getElementById('music').paused)){
+  if((document.getElementById('music').paused && !defaultMusic && document.getElementById('autoplay').paused)){
 
     document.getElementById('music').play();
 
@@ -39,34 +41,45 @@ function play() {
       dataArray = new Uint8Array(bufferLength);
     }
   }
+  else if(audio && defaultMusic && document.getElementById('music').paused && document.getElementById('autoplay').paused){
+    document.getElementById('autoplay').play();
+  }
 
 }
 
 function stop() {
-  document.getElementById('music').pause();
-  var num = Math.floor(Math.random() * musicFiles.length);
-  var musicFile = URL.createObjectURL(musicFiles[num]);
-  $("#music").attr("src", musicFile);
+  if(!defaultMusic)
+    document.getElementById('music').pause();
+  else
+    document.getElementById('autoplay').pause();
+
+  audio.currentTime = 0;
 }
 
 function pause(){
-  document.getElementById('music').pause();
+  if(!defaultMusic)
+    document.getElementById('music').pause();
+  else
+    document.getElementById('autoplay').pause();
+}
+
+function playDefault(){
+
+  if(!audio){
+    audio = document.getElementById('autoplay');
+    audio.crossOrigin = "anonymous";
+    audioSrc = audioCtx.createMediaElementSource(document.getElementById('autoplay'));
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    audioSrc.connect(analyser);
+    audioSrc.connect(audioCtx.destination);
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+    defaultMusic = true;
+  }
 }
 
 window.onload = function (e) {
   document.getElementById('music-files').addEventListener('change', selectMusic, false);
 
-  // audio = document.getElementById('autoplay');
-  // audio.play();
-  // audio.crossOrigin = "anonymous";
-  // audioSrc = audioCtx.createMediaElementSource(document.getElementById('autoplay'));
-  // analyser = audioCtx.createAnalyser();
-  // analyser.fftSize = 256;
-  // audioSrc.connect(analyser);
-  // audioSrc.connect(audioCtx.destination);
-  // bufferLength = analyser.frequencyBinCount;
-  // dataArray = new Uint8Array(bufferLength);
-
 }
-
-

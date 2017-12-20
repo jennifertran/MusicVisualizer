@@ -21,10 +21,11 @@
 <body>
 
 <div id="musicPlayer">
-  <audio id="autoplay" src="_14 - Main Theme - Michael Giacchino _ Star Trek Into Darkness.mp3"></audio>
   <input type="file" id="music-files" multiple accept="audio/*"/>
   <audio id="music" src=""></audio>
   <br/><br/>
+  <div class="default" id="default" onclick="playDefault()">Default music </div>
+  <audio id="autoplay" src="_14 - Main Theme - Michael Giacchino _ Star Trek Into Darkness.mp3"></audio>
   <div class="play" id="play" onclick="play()">Play </div>
   <div class="pause" id="pause" onclick ="pause()">Pause </div>
   <div class="stop" id="stop" onclick="stop()">Stop |=| </div>
