@@ -1,11 +1,12 @@
 body {
-  background-color: #AAAAAA;
+  background-color: #000000;
 }
 
 #musicPlayer {
   position: relative;
   z-index: 2;
   margin: auto;
+  color: white;
 }
 
 canvas {
