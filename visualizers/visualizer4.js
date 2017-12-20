@@ -47,23 +47,24 @@ function animateVis4() {
     for (var i = 0; i < numSpirals; i++) {
       var spiral = scene.getObjectByName("spiral" + i);
 
-      var value = (dataArray[i*2] / 4);
+      var value = (dataArray[i * 2] / 4);
       value = value < 1 ? 1 : value;
 
-      spiral.rotateZ += value / 100;
-      spiral.geometry.verticesNeedUpdate = true;
+      if(spiral !== undefined) {
+        spiral.rotateZ(value / 10000);
+        spiral.geometry.verticesNeedUpdate = true;
 
-      if (i % getRandomInt(2, 7) === 0) {
-        var scale = (getRandomInt(2, 6))/2;
-        var volume = getAverageVolume();
-        if (volume > 50) {
-          scale = volume / 50;
-          spiral.rotateZ += 0.05;
+        if (i % getRandomInt(2, 7) === 0) {
+          var scale = (getRandomInt(2, 6)) / 2;
+          var volume = getAverageVolume();
+          if (volume > 50) {
+            scale = value / 10;
+          }
+          spiral.scale.set(scale, scale, scale);
         }
-        spiral.scale.set(scale, scale, scale);
       }
     }
-  }, 1000/30);
+  }, 1000 / 60);
 }
 
 function getAverageVolume() {
@@ -89,7 +90,7 @@ function getRandomInt(min, max) {
 // Geometry Function from https://github.com/gracexu94/FinalProject
 function createSpiralGeometry(noiseLevel) {
   var geometry = new THREE.Geometry();
-  var sz = 20, cxy = 125, cz = cxy * sz;
+  var sz = 20, cxy = 200, cz = cxy * sz;
   var hxy = Math.PI / cxy, hz = Math.PI / cz;
   var r = 25;
   for (var i = -cz; i < cz; i++) {

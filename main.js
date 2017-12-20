@@ -71,20 +71,15 @@ function fillScene() {
 
 
   //Visualize the Axes - Useful for debugging, can turn this off if desired
-  var axes = new THREE.AxisHelper(1500);
-  scene.add(axes);
+  // var axes = new THREE.AxisHelper(1500);
+  // scene.add(axes);
 
   drawVisual1();
 }
 
 function createObjectMaterial() {
-
   var c = Math.floor(Math.random() * (1 << 24));
-  var material = new THREE.MeshPhongMaterial({
-    color: c,
-    shininess: 50
-  });
-  return material;
+  return new THREE.MeshPhongMaterial({color: c, shininess: 50});
 }
 
 // We want our document object model (a javascript / HTML construct) to include our canvas
@@ -140,15 +135,17 @@ function render() {
 
 // Deletes all the objects in the scene to set up for the new one
 function deleteScene(number) {
+  var i;
+
   if (scene) {
     switch (number) {
       case 1:
-        for (var i = 0; i < maxCount; i++) {
+        for (i = 0; i < maxCount; i++) {
           scene.remove(scene.getObjectByName('cube' + i));
         }
         break;
       case 2:
-        for (var i = 0; i < maxCount; i++) {
+        for (i = 0; i < maxCount; i++) {
           scene.remove(scene.getObjectByName('cubes' + i));
           scene.remove(scene.getObjectByName('cap' + i));
         }
@@ -157,10 +154,14 @@ function deleteScene(number) {
           scene.remove(scene.getObjectByName('sphere'));
         break;
       case 4:
-        for (var i = 0; i < maxCount; i++) {
+        for (i = 0; i < maxCount; i++) {
           scene.remove(scene.getObjectByName('spiral' + i));
         }
         break;
+      case 5:
+        for (i = 0; i < maxCount; i++) {
+          scene.remove(scene.getObjectByName('mesh' + i));
+        }
     }
   }
 
