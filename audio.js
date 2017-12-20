@@ -7,6 +7,7 @@ var bufferLength;
 var dataArray; // frequency data
 
 function selectMusic(e) {
+  audio = null;
   musicFiles = e.target.files;
   var num = Math.floor(Math.random() * musicFiles.length);
   var musicFile = URL.createObjectURL(musicFiles[num]);
@@ -52,5 +53,16 @@ function pause(){
 
 window.onload = function (e) {
   document.getElementById('music-files').addEventListener('change', selectMusic, false);
-  
+
+  audio = document.getElementById('autoplay');
+  audio.play();
+  audio.crossOrigin = "anonymous";
+  audioSrc = audioCtx.createMediaElementSource(document.getElementById('autoplay'));
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 256;
+  audioSrc.connect(analyser);
+  audioSrc.connect(audioCtx.destination);
+  bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
+
 }
