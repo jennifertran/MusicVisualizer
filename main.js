@@ -151,6 +151,9 @@ function deleteScene(number) {
           scene.remove(scene.getObjectByName('cap' + i));
         }
         break;
+      case 3:
+          scene.remove(scene.getObjectByName('sphere'));
+        break;
       case 4:
         for (var i = 0; i < maxCount; i++) {
           scene.remove(scene.getObjectByName('spiral' + i));

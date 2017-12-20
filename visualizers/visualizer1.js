@@ -45,13 +45,13 @@ function animateVis1() {
   getFreq();
 
   if (cameraAngle === desiredAngle) {
-    orbitSpeed = 0;
-  }
-  else {
-    cameraAngle += orbitSpeed;
-    camera.position.x = Math.cos(cameraAngle) * orbitRange;
-    // camera.position.y = Math.sin(cameraAngle) * 500;
-  }
+        orbitSpeed = 0;
+    }
+    else {
+        cameraAngle += orbitSpeed;
+        camera.position.x = Math.cos(cameraAngle) * orbitRange;
+        // camera.position.y = Math.sin(cameraAngle) * 500;
+    }
 
   setTimeout(function () {
     for (var i = 0; i < maxCount; i++) {
