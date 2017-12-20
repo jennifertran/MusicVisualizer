@@ -1,3 +1,3 @@
 ### Music Visualizer
 
-By Jennifer Tran, Justin Gouge, Cici Fan
+By Jennifer Tran, Justin Gouge, Chenxi Fan
