@@ -50,7 +50,7 @@ function animateVis4() {
       var value = (dataArray[i*2] / 4);
       value = value < 1 ? 1 : value;
 
-      spiral.rotation.z += value / 100;
+      spiral.rotateZ += value / 100;
       spiral.geometry.verticesNeedUpdate = true;
 
       if (i % getRandomInt(2, 7) === 0) {
@@ -58,7 +58,7 @@ function animateVis4() {
         var volume = getAverageVolume();
         if (volume > 50) {
           scale = volume / 50;
-          spiral.rotation.z += 0.05;
+          spiral.rotateZ += 0.05;
         }
         spiral.scale.set(scale, scale, scale);
       }
