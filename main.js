@@ -4,7 +4,6 @@ var cameraControls;
 var clock = new THREE.Clock();
 var currVisualizer = 1; // Figures out the current Visualizer
 
-
 // Initialization
 
 function init() {
@@ -24,15 +23,13 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
   cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
-  camera.position.set(0, 800, 0);
-  // cameraControls.target.set(4, 301, 92);
+  camera.position.set(0, 800, 700);
+  cameraControls.target.set(0, 0, 0);
 
   stats = new Stats();
   stats.domElement.style.position = 'absolute';
   stats.domElement.style.right = '0px';
   document.body.appendChild(stats.domElement);
-
-
 }
 
 // Auto resizes the screen
@@ -54,7 +51,7 @@ function fillScene() {
   scene.add(ambient);
 
 
-  var light = new THREE.DirectionalLight(0xffffff, 1);
+  light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(0, 100, 50);
   light.castShadow = true;
   var dLight = 200;
@@ -120,6 +117,19 @@ function animate() {
   render();
 
   stats.end();
+
+}
+
+function changeBackground(){
+
+  randomInt = getRandomInt(0, 2);
+
+  if(randomInt===0) {
+    renderer.setClearColor(0x000000, 1.0);
+  }
+  else {
+    renderer.setClearColor(0xFFFAFA, 1.0);
+  }
 
 }
 

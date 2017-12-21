@@ -1,8 +1,9 @@
 function startVisuals2() {
   if (currVisualizer !== 2) {
     deleteScene(currVisualizer);
-
-    camera.position.set(0, 900, 1000);
+    changeBackground();
+    camera.position.set(0, 800, 1000);
+    cameraControls.target.set(0, 0, 50);
     render();
 
     drawVisual2();
@@ -13,7 +14,7 @@ function startVisuals2() {
 function drawVisual2() {
   var cube, cap;
 
-  var maxWidth = 18;
+  var maxWidth = 25;
 
   var capMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff,
@@ -25,7 +26,7 @@ function drawVisual2() {
   for (var i = 0; i < maxWidth; i++) {
     cube = new THREE.Mesh(new THREE.BoxGeometry(55, 50, 30), createObjectMaterial());
     cube.position.y = 20;
-    cube.position.x = -850 + i * 100;
+    cube.position.x = -950 + i * 80;
     cube.name = 'cubes' + count;
 
     cap = new THREE.Mesh(new THREE.BoxGeometry(55, 20, 30), capMaterial);

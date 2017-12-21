@@ -1,6 +1,7 @@
 function startVisuals4() {
   if (currVisualizer !== 4) {
     deleteScene(currVisualizer);
+    changeBackground();
     drawVisual4();
   }
   currVisualizer = 4;
@@ -50,7 +51,7 @@ function animateVis4() {
       var value = (dataArray[i * 2] / 4);
       value = value < 1 ? 1 : value;
 
-      if(spiral !== undefined) {
+      if (spiral !== undefined) {
         spiral.rotateZ(value / 10000);
         spiral.geometry.verticesNeedUpdate = true;
 

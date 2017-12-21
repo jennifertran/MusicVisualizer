@@ -1,62 +1,66 @@
 function startVisuals3() {
-    if (currVisualizer !== 3) {
-        deleteScene(currVisualizer);
-        drawVisual3();
-    }
-    currVisualizer = 3;
+  if (currVisualizer !== 3) {
+    deleteScene(currVisualizer);
+    renderer.setClearColor(0x000000, 1.0);
+    camera.position.set(0, 800, 1000);
+    render();
+
+    drawVisual3();
+  }
+  currVisualizer = 3;
 }
 
 function drawVisual3() {
-    var sphereGeometry = new THREE.SphereGeometry(500, 19, 19);
-    var particleBlock = new THREE.PointsMaterial({
-        color: Math.floor(Math.random() * (1 << 24)),
-        size: 40.0,
-        transparent: true
-    });
-    particleBlock.blending = THREE.AdditiveBlending;
-    var partSystem = new THREE.Points(sphereGeometry, particleBlock);
-    partSystem.softParticles = true;
-    partSystem.name = 'sphere';
-    partSystem.position.x = 0;
-    partSystem.position.y = 0;
-    partSystem.position.z = 0;
-    scene.add(partSystem);
+  var sphereGeometry = new THREE.SphereGeometry(500, 19, 19);
+  var particleBlock = new THREE.PointsMaterial({
+    color: Math.floor(Math.random() * (1 << 24)),
+    size: 40.0,
+    transparent: true
+  });
+  particleBlock.blending = THREE.AdditiveBlending;
+  var partSystem = new THREE.Points(sphereGeometry, particleBlock);
+  partSystem.softParticles = true;
+  partSystem.name = 'sphere';
+  partSystem.position.x = 0;
+  partSystem.position.y = 0;
+  partSystem.position.z = 0;
+  scene.add(partSystem);
 
-    render();
+  render();
 }
 
 var tempTimer = 0;
 
 function animateVis3() {
-    getFreq();
+  getFreq();
 
-    if (cameraAngle === desiredAngle) {
-        orbitSpeed = 0;
-    }
-    else {
-        cameraAngle += orbitSpeed;
-        camera.position.x = Math.cos(cameraAngle) * orbitRange;
-    }
+  if (cameraAngle === desiredAngle) {
+    orbitSpeed = 0;
+  }
+  else {
+    cameraAngle += orbitSpeed;
+    camera.position.x = Math.cos(cameraAngle) * orbitRange;
+  }
 
-    setTimeout(function () {
-      var sphere = scene.getObjectByName('sphere');
+  setTimeout(function () {
+    var sphere = scene.getObjectByName('sphere');
 
-      var average = getAverageVolume();
-      if (audioBuffer) {
-        tempTimer++;
-        if ((tempTimer / 50) === parseInt((audioBuffer.duration / 4), 10)) {
-          sphere.material.color.setHex(0x2dd88e);
-        }
-        if ((tempTimer / 50) === parseInt((audioBuffer.duration / 3), 10)) {
-          sphere.material.color.setHex(0xc42b2b);
-        }
+    var average = getAverageVolume();
+    if (audioBuffer) {
+      tempTimer++;
+      if ((tempTimer / 50) === parseInt((audioBuffer.duration / 4), 10)) {
+        sphere.material.color.setHex(0x2dd88e);
       }
-
-      if (sphere) {
-          sphere.scale.x = average / 80;
-          sphere.scale.y = average / 80;
-          sphere.scale.z = average / 80;
+      if ((tempTimer / 50) === parseInt((audioBuffer.duration / 3), 10)) {
+        sphere.material.color.setHex(0xc42b2b);
       }
+    }
 
-    }, 1000 / 45);
+    if (sphere) {
+      sphere.scale.x = average / 90;
+      sphere.scale.y = average / 90;
+      sphere.scale.z = average / 90;
+    }
+
+  }, 1000 / 45);
 }

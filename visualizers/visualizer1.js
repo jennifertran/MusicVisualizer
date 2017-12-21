@@ -5,7 +5,7 @@ function startVisuals() {
 
   if (currVisualizer !== 1) {
     deleteScene(currVisualizer);
-
+    changeBackground();
     drawVisual1();
   }
   currVisualizer = 1;
@@ -13,8 +13,8 @@ function startVisuals() {
 
 var cameraAngle = 90;
 var orbitRange = 700;
-var orbitSpeed = 1 * Math.PI/180;
-var desiredAngle = 90 * Math.PI/180;
+var orbitSpeed = Math.PI / 180;
+var desiredAngle = 90 * Math.PI / 180;
 
 function drawVisual1() {
   var cube;
@@ -34,7 +34,7 @@ function drawVisual1() {
 
   }
 
-  camera.position.set(orbitRange,1000, 200);
+  camera.position.set(orbitRange, 1000, 200);
   camera.lookAt(0, 800, 0);
 
   maxCount = count;
@@ -45,13 +45,12 @@ function animateVis1() {
   getFreq();
 
   if (cameraAngle === desiredAngle) {
-        orbitSpeed = 0;
-    }
-    else {
-        cameraAngle += orbitSpeed;
-        camera.position.x = Math.cos(cameraAngle) * orbitRange;
-        // camera.position.y = Math.sin(cameraAngle) * 500;
-    }
+    orbitSpeed = 0;
+  }
+  else {
+    cameraAngle += orbitSpeed;
+    camera.position.x = Math.cos(cameraAngle) * orbitRange;
+  }
 
   setTimeout(function () {
     for (var i = 0; i < maxCount; i++) {
@@ -63,7 +62,7 @@ function animateVis1() {
         currData = 25;
       }
 
-      if(meter !== undefined) {
+      if (meter !== undefined) {
         meter.scale.y = (currData / 25);
         meter.position.y = currData;
       }
