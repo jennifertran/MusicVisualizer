@@ -1,7 +1,6 @@
 function startVisuals3() {
   if (currVisualizer !== 3) {
     deleteScene(currVisualizer);
-    renderer.setClearColor(0x000000, 1.0);
     camera.position.set(0, 800, 1000);
     render();
 

@@ -1,7 +1,6 @@
 function startVisuals2() {
   if (currVisualizer !== 2) {
     deleteScene(currVisualizer);
-    changeBackground();
     camera.position.set(0, 800, 1000);
     cameraControls.target.set(0, 0, 50);
     render();

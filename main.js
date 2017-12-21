@@ -120,19 +120,6 @@ function animate() {
 
 }
 
-function changeBackground(){
-
-  randomInt = getRandomInt(0, 2);
-
-  if(randomInt===0) {
-    renderer.setClearColor(0x000000, 1.0);
-  }
-  else {
-    renderer.setClearColor(0xFFFAFA, 1.0);
-  }
-
-}
-
 // getDelta comes from THREE.js - this tells how much time passed since this was last called
 // This might be useful if time is needed to make things appear smooth, in any animation, or calculation
 // The following function stores this, and also renders the scene cubed on the defined scene and camera

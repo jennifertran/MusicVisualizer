@@ -1,7 +1,6 @@
 function startVisuals4() {
   if (currVisualizer !== 4) {
     deleteScene(currVisualizer);
-    changeBackground();
     drawVisual4();
   }
   currVisualizer = 4;

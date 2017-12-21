@@ -5,7 +5,6 @@ function startVisuals() {
 
   if (currVisualizer !== 1) {
     deleteScene(currVisualizer);
-    changeBackground();
     drawVisual1();
   }
   currVisualizer = 1;

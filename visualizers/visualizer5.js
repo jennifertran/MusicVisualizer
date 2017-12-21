@@ -1,7 +1,6 @@
 function startVisuals5() {
   if (currVisualizer !== 5) {
     deleteScene(currVisualizer);
-    changeBackground();
     drawVisual5();
   }
   currVisualizer = 5;
