@@ -5,8 +5,6 @@
   <title>Music Visualizer</title>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="js/jquery-1.11.3.min.js"></script>
   <script src="js/three.min.js"></script>
@@ -24,21 +22,28 @@
 <body>
 
 <div id="musicPlayer">
-  <input type="file" id="music-files" multiple accept="audio/*"/>
+  <div class="dropdown">
+    <button class="dropbtn">Choose Visualizer</button>
+      <div class="dropdown-content">
+        <a class="Sample1" id="Sample1" onclick="startVisuals()">Matrix Cubes</a>
+        <a class="Sample2" id="Sample2" onclick="startVisuals2()">Vertical Caps</a>
+        <a class="Sample3" id="Sample3" onclick = "startVisuals3()">Sphere</a>
+        <a class="Sample4" id="Sample4" onclick="startVisuals4()">Spirals</a>
+        <a class="Sample5" id="Sample5" onclick="startVisuals5()">Stars</a>
+      </div>
+  </div>
+
+  <br/><br/>
+  <div class="buttons">
+    <i style="font-size:24px" class="fa" id="play" onclick="play()">&#xf04b;</i>
+    <i style="font-size:24px" class="fa" id="pause" onclick ="pause()">&#xf04c;</i>
+    <i style="font-size:24px" class="fa" id="stop"  onclick="stop()">&#xf04d;</i>
+  </div>
+  <br/><br/>
+  <audio id="autoplay" src="Star_Trek_Into_Darkness_Theme-Michael_Giacchino.mp3"></audio>
+  <input type="file" class="fileSelect" id="music-files" multiple accept="audio/*"/>
   <audio id="music" src=""></audio>
-  <i type="file" multiple accept="audio/*" style = "font-size:24px" class = "fa" id="music-files">&#xf093;</i>
-  <br/><br/>
-  <i style="font-size:24px" class="fa" id="play" onclick="play()">&#xf04b;</i>
-  <i style="font-size:24px" class="fa" id="pause" onclick ="pause()">&#xf04c;</i>
-  <i style="font-size:24px" class="fa" id="stop"  onclick="stop()">&#xf04d;</i>
-  <div class="default" id="default" onclick="playDefault()">Default music </div>
-  <audio id="autoplay" src="_14 - Main Theme - Michael Giacchino _ Star Trek Into Darkness.mp3"></audio>
-  <br/><br/>
-  <div class="Sample1" id="Sample1" onclick="startVisuals()">Matrix Cubes</div>
-  <div class="Sample2" id="Sample2" onclick="startVisuals2()">Vertical Caps</div>
-  <div class="Sample3" id="Sample3" onclick = "startVisuals3()">Sphere</div>
-  <div class="Sample4" id="Sample4" onclick="startVisuals4()">Spirals</div>
-  <div class="Sample5" id="Sample5" onclick="startVisuals5()">Stars</div>
+    <button class="default" id="default" onclick="playDefault()">Default Music </button>
 </div>
 
 <div id="canvas">

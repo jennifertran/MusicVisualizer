@@ -17,8 +17,102 @@ canvas {
   margin: auto;
 }
 
+.fa {
+
+   padding-right: 0.25cm;
+   color: white;
+
+}
+
 .fa:hover {
 
   color: green;
-  cursor: default;
+  cursor: pointer;
+}
+
+.buttons {
+
+  position: fixed;
+  bottom: 50px;
+}
+
+.default {
+
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Courier New", Courier, monospace;
+  position: fixed;
+  bottom: 7.5px;
+  padding-bottom: 10px;
+}
+
+.default:hover {
+
+  background-color: green;
+}
+
+input[type=file] {
+  background-color: #000000;
+  border: none;
+  color: white;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: sans-serif;
+
+}
+
+.dropbtn {
+  background-color: white;
+  color: black;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 195px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: green;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: green;
+}
+
+.fileSelect {
+
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 10px;
+  padding-left: 175px;
 }
