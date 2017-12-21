@@ -47,7 +47,7 @@ function animateVis2() {
 
   setTimeout(function () {
     for (var i = 0; i < maxCount; i++) {
-      var meter = scene.getObjectByName('cubes' + i, true);
+      var currCube = scene.getObjectByName('cubes' + i, true);
       var currCap = scene.getObjectByName('cap' + i, true);
 
       var currData = dataArray[i * 4];
@@ -56,12 +56,12 @@ function animateVis2() {
         currData = 1;
       }
 
-      if (meter !== undefined) {
-        meter.scale.y = (currData / 25);
-        meter.position.y = currData;
+      if (currCube !== undefined) {
+        currCube.scale.y = (currData / 25);
+        currCube.position.y = currData;
 
-        meter.geometry.computeBoundingBox();
-        var height = (meter.geometry.boundingBox.max.y - meter.geometry.boundingBox.min.y) * (currData / 4);
+        currCube.geometry.computeBoundingBox();
+        var height = (currCube.geometry.boundingBox.max.y - currCube.geometry.boundingBox.min.y) * (currData / 4);
 
         if (height / 2 <= 5) {
           currCap.position.y = 0;

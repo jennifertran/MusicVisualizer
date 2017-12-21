@@ -7,10 +7,9 @@ function startVisuals4() {
 }
 
 function getRandomColor() {
-  var colors = ["aqua", "aquamarine", "blue", "blueviolet", "cornflowerblue", "cyan", "deeppink", "deepskyblue", "dodgerblue", "fuchsia", "greenyellow", "hotpink", "lawngreen", "lime", "limegreen", "magenta", "orange", "orchid", "plum", "powderblue", "red", "skyblue", "springgreen", "turquoise", "violet", "yellow"];
+  var colors = ["aqua", "red", "skyblue", "springgreen", "turquoise", "violet", "yellow", "aquamarine", "blue", "blueviolet", "greenyellow", "hotpink", "lawngreen", "lime", "cornflowerblue", "cyan", "deeppink", "deepskyblue", "dodgerblue", "fuchsia", "limegreen", "magenta", "orange", "orchid", "plum", "powderblue"];
 
-  var random = getRandomInt(0, colors.length);
-  return colors[random];
+  return colors[getRandomInt(0, colors.length)];
 }
 
 var numSpirals = 20;
@@ -82,8 +81,6 @@ function getAverageVolume() {
 }
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -92,14 +89,14 @@ function createSpiralGeometry(noiseLevel) {
   var geometry = new THREE.Geometry();
   var sz = 20, cxy = 200, cz = cxy * sz;
   var hxy = Math.PI / cxy, hz = Math.PI / cz;
-  var r = 25;
+  var radius = 25;
   for (var i = -cz; i < cz; i++) {
     var lxy = i * hxy;
     var lz = i * hz;
-    var rxy = r / Math.cosh(lz);
+    var rxy = radius / Math.cosh(lz);
     var x = rxy * Math.cos(lxy);
     var y = rxy * Math.sin(lxy) + getRandomInt(0, noiseLevel);
-    var z = r * Math.tanh(lz) + getRandomInt(0, noiseLevel);
+    var z = radius * Math.tanh(lz) + getRandomInt(0, noiseLevel);
     geometry.vertices.push(new THREE.Vector3(x, y, z));
   }
   return geometry;
