@@ -20,8 +20,6 @@ A Music Visualizer that dynamically displays a visual effect that is responsive 
 <img src="https://raw.githubusercontent.com/jennifertran/MusicVisualizer/master/screenshots/visual4.png" width="80%">
 <img src="https://raw.githubusercontent.com/jennifertran/MusicVisualizer/master/screenshots/visual5.png" width="80%">
 
-<img src="image" width="40%">
-
 ## Challanges Faced
 * Catching every detail in the audio track.
 * Figuring out how the audio properties worked.
